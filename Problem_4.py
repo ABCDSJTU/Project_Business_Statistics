@@ -3,23 +3,16 @@ import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 from statsmodels.formula.api import ols
-
-# Set matplotlib to use TkAgg for the backend
 import matplotlib
 matplotlib.use('TkAgg')
 
-# File paths for the data
 file_path_day = 'day.csv'
 file_path_hour = 'hour.csv'
-
-# Read data
 data = pd.read_csv(file_path_day)
 
 def solve_problem():
-    # Display summary statistics for selected columns
     print(data[['atemp', 'hum', 'windspeed', 'cnt']].describe())
 
-    # Plot distributions for selected variables
     fig, axes = plt.subplots(1, 3, figsize=(18, 5), dpi=300)
     sns.histplot(data['atemp'], kde=True, ax=axes[0], bins=50, color='skyblue')
     axes[0].set_title('Distribution of atemp')
@@ -87,6 +80,5 @@ def solve_problem():
         t_test_result = model.t_test("temp_squared = 0")
         print(f"T-test statistic for quadratic term: {t_test_result.tvalue[0][0]:.2f}, p-value: {t_test_result.pvalue:.4f}")
 
-    # Perform quadratic fit analysis on 'temp' vs 'cnt'
     plot_fit_and_data(data['temp'], data['cnt'])
 
