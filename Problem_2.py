@@ -4,12 +4,9 @@ matplotlib.use('TkAgg')
 
 file_path_day = 'day.csv'
 file_path_hour = 'hour.csv'
-
-# 读取数据
 data = pd.read_csv(file_path_day)
 
 def solve_problem():
-    # 提取不同天气状态的数据
     weather_data = {
         'Good Weather': data[data['weathersit'] == 1]['cnt'],  # 天气较好
         'Moderate Weather': data[data['weathersit'] == 2]['cnt'],  # 中等天气
