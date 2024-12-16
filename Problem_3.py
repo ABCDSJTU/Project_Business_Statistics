@@ -8,8 +8,6 @@ matplotlib.use('TkAgg')
 
 file_path_day = 'day.csv'
 file_path_hour = 'hour.csv'
-
-# 读取数据
 data = pd.read_csv(file_path_day)
 
 def plot_stacked_bar(data):
@@ -29,7 +27,6 @@ def plot_stacked_bar(data):
     plt.tight_layout()
     plt.show()
 
-
 def calculate_workingday_statistics(data):
     """计算工作日和非工作日的统计数据并进行Z检验"""
     workingday_data = data.groupby('workingday')[['casual', 'registered']].sum().reset_index()
@@ -47,7 +44,6 @@ def calculate_workingday_statistics(data):
     print(f"Z-statistic: {z_stat:.2f}, p-value: {p_value:.8f}")
     return p_value
 
-
 def chi_square_test_and_plot(data):
     """进行卡方检验并绘制堆叠条形图"""
     weather_usage = data.groupby('weathersit')[['casual', 'registered']].mean().reset_index()
@@ -59,7 +55,7 @@ def chi_square_test_and_plot(data):
     })
 
     print(weather_usage)
-
+    
     # 构建列联表
     contingency_table = pd.DataFrame({
         'Good Weather': [964, 3913],
@@ -72,7 +68,7 @@ def chi_square_test_and_plot(data):
 
     # 进行chi-square检验
     chi2_stat, p_value, dof, expected = chi2_contingency(contingency_table)
-
+    
     print(f"Chi-square statistic: {chi2_stat:.2f}")
     print(f"P-value: {p_value:.4f}")
     print(f"Degrees of freedom: {dof}")
@@ -98,13 +94,12 @@ def chi_square_test_and_plot(data):
 
 def solve_problem():
     plot_stacked_bar(data)
-
     # 进行工作日/非工作日比例Z检验
     p_value = calculate_workingday_statistics(data)
     if p_value < 0.05:
         print("非注册用户在非工作日的使用比例显著高于工作日。")
     else:
         print("非注册用户在非工作日的使用比例与工作日没有显著差异。")
-
+        
     chi_square_test_and_plot(data)
 
