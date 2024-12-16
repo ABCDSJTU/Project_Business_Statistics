@@ -51,9 +51,9 @@ def plot_hourly_trends(df):
     df_grouped_avg = df.groupby(['season', 'workingday', 'hr'])['cnt'].mean().reset_index()
 
     # 创建图表
-    fig, ax = plt.subplots(figsize=(15, 5))  # 更大的图表
-    colors = sns.color_palette("Paired", 8)  # 颜色调色板
-    line_styles = ['-', '--', '-.', ':', '-', '--', '-.', ':', '-', '--', '-.', ':', '-', '--', '-.', ':']  # 线条样式
+    fig, ax = plt.subplots(figsize=(15, 5)) 
+    colors = sns.color_palette("Paired", 8)  
+    line_styles = ['-', '--', '-.', ':', '-', '--', '-.', ':', '-', '--', '-.', ':', '-', '--', '-.', ':']  
 
     # 绘制不同季节和工作日/非工作日的趋势
     line_idx = 0  # 线条索引
@@ -68,8 +68,6 @@ def plot_hourly_trends(df):
     ax.set_title('Average Hourly Usage Trend by Season and Working Day vs Non-Working Day', fontsize=16, fontweight='bold')
     ax.set_xlabel('Hour of the Day', fontsize=14)
     ax.set_ylabel('Average Usage Count', fontsize=14)
-
-    # 设置横轴显示0-23小时
     ax.set_xticks(range(24))
     ax.set_xticklabels([f'{i}' for i in range(24)], fontsize=12)
     ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, loc: f'{x:.2f}'))
@@ -100,15 +98,13 @@ def solve_problem():
     else:
         print("无显著差异：工作日与非工作日的单车使用量没有显著差异")
 
-    # 按小时聚合并输出
+    # 按小时、星期几、季节聚合并输出
     hourly_peak = data_hour.groupby('hr')['cnt'].sum().sort_values(ascending=False)
     print(hourly_peak)
 
-    # 按星期几聚合
     weekday_peak = data_hour.groupby('weekday')['cnt'].sum().sort_values(ascending=False)
     print(weekday_peak)
 
-    # 按季节聚合
     season_peak = data_hour.groupby('season')['cnt'].sum().sort_values(ascending=False)
     print(season_peak)
 
